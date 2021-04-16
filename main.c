@@ -161,6 +161,11 @@ int main()
            printf("No errors\n");
         }
     }
+	
+    if(0 != pthread_join(commandThread, NULL))
+    {
+        printf("No errors\n");
+    }
 
     //destroying mutex
     pthread_mutex_destroy(&result_mutex);
@@ -183,7 +188,7 @@ void *commandExecution()
     {
         getCommand();
     }
-    return 0;
+    pthread_exit(NULL)
 }
 
 void *workers(void *num)
@@ -251,8 +256,7 @@ void unloadingResources(int num)
 
 void getCommand()
 {
-    scanf("%c", &Base.command);
-    fflush(stdin);
+    Base.command = getchar();
 }
 
 void buildBarrack(int num)
